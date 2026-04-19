@@ -8,6 +8,7 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
+      fontFamily: 'Inter',
       colorScheme: const ColorScheme.light(
         primary: AppColors.primary,
         onPrimary: AppColors.white,
@@ -58,6 +59,7 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
+      fontFamily: 'Inter',
       colorScheme: const ColorScheme.dark(
         primary: AppColors.primaryLight,
         onPrimary: AppColors.textPrimary,
@@ -229,8 +231,8 @@ class AppTheme {
     );
   }
 
-  static CardTheme _buildCardTheme() {
-    return CardTheme(
+  static CardThemeData _buildCardTheme() {
+    return CardThemeData(
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
@@ -382,8 +384,8 @@ class AppTheme {
     );
   }
 
-  static DialogTheme _buildDialogTheme() {
-    return DialogTheme(
+  static DialogThemeData _buildDialogTheme() {
+    return DialogThemeData(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -418,8 +420,8 @@ class AppTheme {
     );
   }
 
-  static TabBarTheme _buildTabBarTheme() {
-    return TabBarTheme(
+  static TabBarThemeData _buildTabBarTheme() {
+    return TabBarThemeData(
       labelStyle: GoogleFonts.inter(
         fontSize: 14,
         fontWeight: FontWeight.w600,

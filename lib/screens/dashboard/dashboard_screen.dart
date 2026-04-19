@@ -26,411 +26,293 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
-      body: CustomScrollView(
-        slivers: [
-          // App Bar
-          SliverAppBar(
-            expandedHeight: 120,
-            floating: true,
-            pinned: true,
-            elevation: 0,
-            backgroundColor: AppColors.background,
-            flexibleSpace: FlexibleSpaceBar(
-              titlePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Header with greeting
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Habari!',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: AppColors.textSecondary,
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Hello, Rehema',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey.shade500,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      const Text(
+                        'Welcome back',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    'Duka Langu',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.textPrimary,
+                  Container(
+                    width: 45,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade200,
+                      shape: BoxShape.circle,
+                      image: const DecorationImage(
+                        image: AssetImage('assets/images/fun-3d-illustration-american-referee.jpg'),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ],
               ),
-            ),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.notifications_outlined),
-                onPressed: () {},
+              const SizedBox(height: 24),
+
+              // Main Balance Card
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color(0xFF00C853),
+                      Color(0xFF00BFA5),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Total Sales',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white70,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'TZS 1,000,000',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Profit',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.white70,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              const Text(
+                                'TZS 200,000',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Transactions',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.white70,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              const Text(
+                                '2,400',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(width: 8),
+              const SizedBox(height: 24),
+
+              // Sales Chart Section
+              const Text(
+                'Sales Summary',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Simple Bar Chart
+              Container(
+                height: 150,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade50,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    _buildBarChartColumn('Mon', 0.6),
+                    _buildBarChartColumn('Tue', 0.8),
+                    _buildBarChartColumn('Wed', 0.4),
+                    _buildBarChartColumn('Thu', 0.9),
+                    _buildBarChartColumn('Fri', 0.7),
+                    _buildBarChartColumn('Sat', 0.5),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              // Recent Transactions Header
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Recent Transactions',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'See All',
+                      style: TextStyle(
+                        color: Color(0xFF00C853),
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+
+              // Recent Transactions List
+              _buildTransactionItem('Juma Ali', 'TZS 25,000', '10:30 AM', Icons.shopping_bag),
+              _buildTransactionItem('Mama Ntilie', 'TZS 45,000', '09:15 AM', Icons.shopping_bag),
+              _buildTransactionItem('Bwana Haraka', 'TZS 18,000', '08:45 AM', Icons.shopping_bag),
+              _buildTransactionItem('Mwanafunzi', 'TZS 5,000', '08:00 AM', Icons.shopping_bag),
             ],
           ),
-          
-          // Content
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Quick Actions
-                  _buildQuickActions(),
-                  const SizedBox(height: 24),
-                  
-                  // Stats Cards
-                  Text(
-                    'Muhtasari wa Leo',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  _buildStatsGrid(),
-                  const SizedBox(height: 24),
-                  
-                  // Low Stock Alert
-                  _buildLowStockAlert(),
-                  const SizedBox(height: 24),
-                  
-                  // Recent Sales
-                  Text(
-                    'Mauzo ya Karibuni',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  _buildRecentSales(),
-                ],
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _buildQuickActions() {
-    return Row(
+  Widget _buildBarChartColumn(String day, double height) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Expanded(
-          child: _QuickActionButton(
-            icon: Icons.point_of_sale,
-            label: 'Mauzo Mapya',
-            color: AppColors.primary,
-            onTap: () => context.push('/sales/new'),
+        Container(
+          width: 30,
+          height: 100 * height,
+          decoration: BoxDecoration(
+            color: const Color(0xFF00C853),
+            borderRadius: BorderRadius.circular(6),
           ),
         ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: _QuickActionButton(
-            icon: Icons.add_box,
-            label: 'Ongeza Bidhaa',
-            color: AppColors.secondary,
-            onTap: () => context.push('/products/add'),
+        const SizedBox(height: 8),
+        Text(
+          day,
+          style: TextStyle(
+            fontSize: 12,
+            color: Colors.grey.shade600,
           ),
         ),
       ],
     );
   }
 
-  Widget _buildStatsGrid() {
-    return GridView.count(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      crossAxisCount: 2,
-      mainAxisSpacing: 12,
-      crossAxisSpacing: 12,
-      childAspectRatio: 1.2,
-      children: [
-        _StatCard(
-          title: 'Mauzo ya Leo',
-          value: Formatters.formatCurrency(125000),
-          icon: Icons.trending_up,
-          color: AppColors.primary,
-          subtitle: 'Mauzo 12',
-        ),
-        _StatCard(
-          title: 'Faida ya Leo',
-          value: Formatters.formatCurrency(35000),
-          icon: Icons.attach_money,
-          color: AppColors.secondary,
-          subtitle: '+12% kutoka jana',
-        ),
-        _StatCard(
-          title: 'Wateja Wapya',
-          value: '5',
-          icon: Icons.people,
-          color: AppColors.accent,
-          subtitle: 'Wiki hii: 23',
-        ),
-        _StatCard(
-          title: 'Bidhaa Zilizobaki',
-          value: '156',
-          icon: Icons.inventory_2,
-          color: AppColors.info,
-          subtitle: 'Stock chache: 8',
-        ),
-      ],
-    );
-  }
-
-  Widget _buildLowStockAlert() {
+  Widget _buildTransactionItem(String name, String amount, String time, IconData icon) {
     return Container(
+      margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.warning.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.warning.withOpacity(0.3)),
+        color: Colors.grey.shade50,
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(10),
+            width: 45,
+            height: 45,
             decoration: BoxDecoration(
-              color: AppColors.warning.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(12),
+              color: const Color(0xFF00C853).withOpacity(0.1),
+              borderRadius: BorderRadius.circular(10),
             ),
             child: const Icon(
-              Icons.warning_amber,
-              color: AppColors.warning,
+              Icons.shopping_bag,
+              color: Color(0xFF00C853),
+              size: 20,
             ),
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Stock Chache',
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  name,
+                  style: const TextStyle(
+                    fontSize: 14,
                     fontWeight: FontWeight.w600,
-                    color: AppColors.warning,
+                    color: Colors.black87,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Bidhaa 8 zimekaribia kukwisha',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppColors.textSecondary,
+                  time,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey.shade500,
                   ),
                 ),
               ],
             ),
           ),
-          TextButton(
-            onPressed: () => context.go('/products'),
-            child: const Text('Tazama'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildRecentSales() {
-    final sales = [
-      {'customer': 'Juma Ali', 'items': 3, 'total': 25000, 'time': '10:30'},
-      {'customer': 'Mama Ntilie', 'items': 5, 'total': 45000, 'time': '09:15'},
-      {'customer': 'Bwana Haraka', 'items': 2, 'total': 18000, 'time': '08:45'},
-      {'customer': 'Mwanafunzi', 'items': 1, 'total': 5000, 'time': '08:00'},
-    ];
-
-    return ListView.separated(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: sales.length,
-      separatorBuilder: (_, __) => const Divider(height: 1),
-      itemBuilder: (context, index) {
-        final sale = sales[index];
-        return ListTile(
-          contentPadding: EdgeInsets.zero,
-          leading: Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Icon(
-              Icons.receipt_long,
-              color: AppColors.primary,
-            ),
-          ),
-          title: Text(
-            sale['customer'] as String,
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(
+          Text(
+            amount,
+            style: const TextStyle(
+              fontSize: 14,
               fontWeight: FontWeight.w600,
-            ),
-          ),
-          subtitle: Text(
-            '${sale['items']} bidhaa',
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: AppColors.textSecondary,
-            ),
-          ),
-          trailing: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                Formatters.formatCurrency(sale['total'] as int).toDouble(),
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.primary,
-                ),
-              ),
-              Text(
-                sale['time'] as String,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: AppColors.textTertiary,
-                ),
-              ),
-            ],
-          ),
-          onTap: () {},
-        );
-      },
-    );
-  }
-}
-
-class _QuickActionButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final Color color;
-  final VoidCallback onTap;
-
-  const _QuickActionButton({
-    required this.icon,
-    required this.label,
-    required this.color,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                color,
-                color.withOpacity(0.8),
-              ],
-            ),
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: color.withOpacity(0.3),
-                blurRadius: 12,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                icon,
-                color: Colors.white,
-                size: 28,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                label,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _StatCard extends StatelessWidget {
-  final String title;
-  final String value;
-  final IconData icon;
-  final Color color;
-  final String subtitle;
-
-  const _StatCard({
-    required this.title,
-    required this.value,
-    required this.icon,
-    required this.color,
-    required this.subtitle,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(
-                  icon,
-                  color: color,
-                  size: 20,
-                ),
-              ),
-            ],
-          ),
-          const Spacer(),
-          Text(
-            value,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: AppColors.textSecondary,
-            ),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            subtitle,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: color,
-              fontWeight: FontWeight.w500,
+              color: Colors.black87,
             ),
           ),
         ],

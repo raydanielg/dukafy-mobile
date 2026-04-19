@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // === GRADIENT COLORS (from screenshots) ===
-  // Primary Purple/Pink Gradient
-  static const Color primaryPurple = Color(0xFF7B61FF);
-  static const Color primaryPink = Color(0xFFE91E63);
-  static const Color primaryBlue = Color(0xFF2196F3);
-  static const Color primaryCyan = Color(0xFF00BCD4);
+  // === GRADIENT COLORS (Green Theme) ===
+  // Primary Green Gradient
+  static const Color primaryGreen = Color(0xFF00C853);
+  static const Color primaryGreenLight = Color(0xFF64DD17);
+  static const Color primaryGreenDark = Color(0xFF009624);
+  static const Color primaryTeal = Color(0xFF00BFA5);
+  
+  // Legacy aliases for compatibility
+  static const Color primaryPurple = Color(0xFF00C853);
+  static const Color primaryPink = Color(0xFF64DD17);
+  static const Color primaryBlue = Color(0xFF00BFA5);
+  static const Color primaryCyan = Color(0xFF00C853);
   
   // Dark Theme Backgrounds
   static const Color darkBackground = Color(0xFF0F0F1F);
@@ -16,19 +22,19 @@ class AppColors {
   
   // Gradient Lists
   static const List<Color> primaryGradient = [
-    Color(0xFF7B61FF),
-    Color(0xFF9C27B0),
-    Color(0xFFE91E63),
+    Color(0xFF00C853),
+    Color(0xFF64DD17),
+    Color(0xFF00BFA5),
   ];
   
   static const List<Color> blueGradient = [
-    Color(0xFF2196F3),
-    Color(0xFF7B61FF),
+    Color(0xFF00BFA5),
+    Color(0xFF00C853),
   ];
   
   static const List<Color> cyanGradient = [
-    Color(0xFF00BCD4),
-    Color(0xFF2196F3),
+    Color(0xFF00C853),
+    Color(0xFF64DD17),
   ];
   
   static const List<Color> successGradient = [
@@ -46,14 +52,14 @@ class AppColors {
     Color(0xFFFF1744),
   ];
   
-  // === ORIGINAL COLORS (kept for compatibility) ===
-  static const Color primary = Color(0xFF7B61FF);
-  static const Color primaryDark = Color(0xFF5A4ECC);
-  static const Color primaryLight = Color(0xFF9C8BFF);
+  // === ORIGINAL COLORS (Green Theme) ===
+  static const Color primary = Color(0xFF00C853);
+  static const Color primaryDark = Color(0xFF009624);
+  static const Color primaryLight = Color(0xFF64DD17);
   
-  static const Color secondary = Color(0xFF00BCD4);
-  static const Color secondaryDark = Color(0xFF00838F);
-  static const Color secondaryLight = Color(0xFF80DEEA);
+  static const Color secondary = Color(0xFF00BFA5);
+  static const Color secondaryDark = Color(0xFF008E76);
+  static const Color secondaryLight = Color(0xFF64FFDA);
   
   static const Color accent = Color(0xFFFFAB00);
   static const Color accentDark = Color(0xFFFF6D00);
@@ -93,13 +99,13 @@ class AppColors {
   
   // Chart Colors
   static const List<Color> chartColors = [
-    Color(0xFF7B61FF),
-    Color(0xFF00BCD4),
     Color(0xFF00C853),
-    Color(0xFFFFAB00),
-    Color(0xFFE91E63),
-    Color(0xFF2196F3),
-    Color(0xFFFF6D00),
-    Color(0xFF9C27B0),
+    Color(0xFF64DD17),
+    Color(0xFF00BFA5),
+    Color(0xFF009624),
+    Color(0xFF00E676),
+    Color(0xFF69F0AE),
+    Color(0xFF1DE9B6),
+    Color(0xFF00B8D4),
   ];
 }

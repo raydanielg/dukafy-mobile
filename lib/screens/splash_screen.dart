@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import '../core/constants/app_colors.dart';
 import '../core/constants/app_constants.dart';
 
@@ -24,6 +26,13 @@ class _SplashScreenState extends State<SplashScreen>
       vsync: this,
       duration: const Duration(milliseconds: 2000),
     );
+    
+    // Navigate to onboarding after animation completes
+    Timer(const Duration(milliseconds: 2500), () {
+      if (mounted) {
+        context.go('/onboarding');
+      }
+    });
 
     _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
@@ -79,7 +88,7 @@ class _SplashScreenState extends State<SplashScreen>
         ),
         child: Stack(
           children: [
-            // Background decorative circles
+            // Background decorative circles - Green theme
             Positioned(
               top: -100,
               right: -100,
@@ -90,7 +99,7 @@ class _SplashScreenState extends State<SplashScreen>
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
                     colors: [
-                      AppColors.primaryPurple.withOpacity(0.3),
+                      AppColors.primaryGreen.withOpacity(0.4),
                       Colors.transparent,
                     ],
                   ),
@@ -107,7 +116,7 @@ class _SplashScreenState extends State<SplashScreen>
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
                     colors: [
-                      AppColors.primaryPink.withOpacity(0.2),
+                      AppColors.primaryTeal.withOpacity(0.3),
                       Colors.transparent,
                     ],
                   ),
@@ -127,7 +136,7 @@ class _SplashScreenState extends State<SplashScreen>
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // Logo with gradient border
+                          // Logo with green gradient border
                           Container(
                             width: 140,
                             height: 140,
@@ -135,15 +144,15 @@ class _SplashScreenState extends State<SplashScreen>
                               shape: BoxShape.circle,
                               gradient: const SweepGradient(
                                 colors: [
-                                  AppColors.primaryPurple,
-                                  AppColors.primaryPink,
-                                  AppColors.primaryBlue,
-                                  AppColors.primaryPurple,
+                                  AppColors.primaryGreen,
+                                  AppColors.primaryGreenLight,
+                                  AppColors.primaryTeal,
+                                  AppColors.primaryGreen,
                                 ],
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: AppColors.primaryPurple.withOpacity(0.5),
+                                  color: AppColors.primaryGreen.withOpacity(0.5),
                                   blurRadius: 30,
                                   spreadRadius: 5,
                                 ),
@@ -166,12 +175,12 @@ class _SplashScreenState extends State<SplashScreen>
                           ),
                           const SizedBox(height: 40),
                           
-                          // App Name with gradient text
+                          // App Name with green gradient text
                           ShaderMask(
                             shaderCallback: (bounds) => const LinearGradient(
                               colors: [
-                                AppColors.primaryPurple,
-                                AppColors.primaryPink,
+                                AppColors.primaryGreen,
+                                AppColors.primaryTeal,
                               ],
                             ).createShader(bounds),
                             child: Text(
@@ -232,10 +241,10 @@ class _SplashScreenState extends State<SplashScreen>
           height: 12,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: AppColors.primaryPurple.withOpacity(0.5 + scale * 0.5),
+            color: AppColors.primaryGreen.withOpacity(0.5 + scale * 0.5),
             boxShadow: [
               BoxShadow(
-                color: AppColors.primaryPurple.withOpacity(scale * 0.5),
+                color: AppColors.primaryGreen.withOpacity(scale * 0.5),
                 blurRadius: 10,
                 spreadRadius: 2,
               ),
