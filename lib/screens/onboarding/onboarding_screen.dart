@@ -21,20 +21,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     OnboardingPage(
       title: 'Simamia Mauzo',
       description: 'Fuatilia mauzo yako yote kwa wakati halisi, toa risiti, na pokea njia mbalimbali za malipo',
-      icon: Icons.point_of_sale,
-      color: AppColors.primary,
+      icon: Icons.point_of_sale_rounded,
+      gradientColors: const [Color(0xFF7B61FF), Color(0xFFE91E63)],
     ),
     OnboardingPage(
       title: 'Dhibiti Stock',
       description: 'Weka kumbukumbu za bidhaa zako, pata arifa za stock chache, na simamia bei za bidhaa',
-      icon: Icons.inventory_2,
-      color: AppColors.secondary,
+      icon: Icons.inventory_2_rounded,
+      gradientColors: const [Color(0xFF00BCD4), Color(0xFF2196F3)],
     ),
     OnboardingPage(
       title: 'Ongeza Faida',
       description: 'Changanua utendaji wa biashara yako, fuatilia matumizi, na ongeza faida zako',
-      icon: Icons.trending_up,
-      color: AppColors.accent,
+      icon: Icons.trending_up_rounded,
+      gradientColors: const [Color(0xFF00C853), Color(0xFF64DD17)],
     ),
   ];
 
@@ -45,7 +45,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.light,
       ),
     );
   }
@@ -59,8 +59,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   void _onNextPage() {
     if (_currentPage < _pages.length - 1) {
       _pageController.nextPage(
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeInOut,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOutCubic,
       );
     } else {
       _completeOnboarding();
@@ -81,96 +81,132 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Skip Button
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: TextButton(
-                  onPressed: _onSkip,
-                  child: Text(
-                    'Ruka',
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: AppColors.textSecondary,
-                      fontWeight: FontWeight.w600,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xFF0F0F1F),
+              Color(0xFF1A1A2E),
+              Color(0xFF252542),
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              // Skip Button
+              Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: TextButton(
+                    onPressed: _onSkip,
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.white70,
+                    ),
+                    child: const Text(
+                      'Ruka',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            
-            // Page Content
-            Expanded(
-              child: PageView.builder(
-                controller: _pageController,
-                onPageChanged: (index) {
-                  setState(() {
-                    _currentPage = index;
-                  });
-                },
-                itemCount: _pages.length,
-                itemBuilder: (context, index) {
-                  return _buildPage(_pages[index]);
-                },
+              
+              // Page Content
+              Expanded(
+                child: PageView.builder(
+                  controller: _pageController,
+                  onPageChanged: (index) {
+                    setState(() {
+                      _currentPage = index;
+                    });
+                  },
+                  itemCount: _pages.length,
+                  itemBuilder: (context, index) {
+                    return _buildPage(_pages[index]);
+                  },
+                ),
               ),
-            ),
-            
-            // Bottom Section
-            Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                children: [
-                  // Page Indicators
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                      _pages.length,
-                      (index) => AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        width: _currentPage == index ? 32 : 8,
-                        height: 8,
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
-                        decoration: BoxDecoration(
-                          color: _currentPage == index
-                              ? AppColors.primary
-                              : AppColors.borderDark,
-                          borderRadius: BorderRadius.circular(4),
+              
+              // Bottom Section
+              Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  children: [
+                    // Page Indicators
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        _pages.length,
+                        (index) => AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          width: _currentPage == index ? 32 : 8,
+                          height: 8,
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
+                          decoration: BoxDecoration(
+                            gradient: _currentPage == index
+                                ? LinearGradient(
+                                    colors: _pages[_currentPage].gradientColors,
+                                  )
+                                : null,
+                            color: _currentPage == index
+                                ? null
+                                : Colors.white24,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 32),
-                  
-                  // Next/Get Started Button
-                  SizedBox(
-                    width: double.infinity,
-                    height: 56,
-                    child: ElevatedButton(
-                      onPressed: _onNextPage,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary,
-                        foregroundColor: AppColors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
+                    const SizedBox(height: 32),
+                    
+                    // Next/Get Started Button
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: _pages[_currentPage].gradientColors,
                         ),
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: _pages[_currentPage].gradientColors.first.withOpacity(0.4),
+                            blurRadius: 20,
+                            offset: const Offset(0, 8),
+                          ),
+                        ],
                       ),
-                      child: Text(
-                        _currentPage == _pages.length - 1 ? 'Anza Sasa' : 'Inayofuata',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 60,
+                        child: ElevatedButton(
+                          onPressed: _onNextPage,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            foregroundColor: Colors.white,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          child: Text(
+                            _currentPage == _pages.length - 1 ? 'Anza Sasa' : 'Inayofuata',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -178,48 +214,71 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Widget _buildPage(OnboardingPage page) {
     return Padding(
-      padding: const EdgeInsets.all(32),
+      padding: const EdgeInsets.symmetric(horizontal: 32),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Icon Container
+          // 3D Icon Container with glow
           Container(
-            width: 180,
-            height: 180,
+            width: 200,
+            height: 200,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+              shape: BoxShape.circle,
+              gradient: RadialGradient(
                 colors: [
-                  page.color,
-                  page.color.withOpacity(0.7),
+                  page.gradientColors.first.withOpacity(0.3),
+                  Colors.transparent,
                 ],
               ),
-              borderRadius: BorderRadius.circular(40),
-              boxShadow: [
-                BoxShadow(
-                  color: page.color.withOpacity(0.3),
-                  blurRadius: 30,
-                  offset: const Offset(0, 15),
-                ),
-              ],
             ),
-            child: Icon(
-              page.icon,
-              size: 80,
-              color: AppColors.white,
+            child: Center(
+              child: Container(
+                width: 160,
+                height: 160,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: page.gradientColors,
+                  ),
+                  borderRadius: BorderRadius.circular(40),
+                  boxShadow: [
+                    BoxShadow(
+                      color: page.gradientColors.first.withOpacity(0.5),
+                      blurRadius: 40,
+                      spreadRadius: 5,
+                      offset: const Offset(0, 15),
+                    ),
+                    BoxShadow(
+                      color: page.gradientColors.last.withOpacity(0.3),
+                      blurRadius: 60,
+                      spreadRadius: 10,
+                    ),
+                  ],
+                ),
+                child: Icon(
+                  page.icon,
+                  size: 80,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
           const SizedBox(height: 48),
           
-          // Title
-          Text(
-            page.title,
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary,
+          // Title with gradient
+          ShaderMask(
+            shaderCallback: (bounds) => LinearGradient(
+              colors: page.gradientColors,
+            ).createShader(bounds),
+            child: Text(
+              page.title,
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16),
           
@@ -227,8 +286,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           Text(
             page.description,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: AppColors.textSecondary,
-              height: 1.5,
+              color: Colors.white70,
+              height: 1.6,
             ),
             textAlign: TextAlign.center,
           ),
@@ -242,12 +301,12 @@ class OnboardingPage {
   final String title;
   final String description;
   final IconData icon;
-  final Color color;
+  final List<Color> gradientColors;
 
   OnboardingPage({
     required this.title,
     required this.description,
     required this.icon,
-    required this.color,
+    required this.gradientColors,
   });
 }
